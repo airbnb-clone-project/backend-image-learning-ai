@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.image'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+dependencies {
+    implementation 'org.deeplearning4j:deeplearning4j-core:1.0.0-M1.1'
+    implementation 'org.nd4j:nd4j-native-platform:1.0.0-M1.1'
+    implementation 'org.datavec:datavec-api:1.0.0-M1.1'
+    implementation 'org.datavec:datavec-data-image:1.0.0-M1.1'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
