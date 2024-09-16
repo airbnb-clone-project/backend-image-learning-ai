@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.1.5'
 }
 
 group = 'com.image'
@@ -15,11 +17,25 @@ java {
     }
 }
 
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
 dependencies {
+    //spring boot
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    //deep learning
     implementation 'org.deeplearning4j:deeplearning4j-core:1.0.0-M1.1'
     implementation 'org.nd4j:nd4j-native-platform:1.0.0-M1.1'
     implementation 'org.datavec:datavec-api:1.0.0-M1.1'
     implementation 'org.datavec:datavec-data-image:1.0.0-M1.1'
+
+    //lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
