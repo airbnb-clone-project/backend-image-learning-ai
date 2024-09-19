@@ -3,7 +3,6 @@ package com.airbnb.image_ai.controller;
 import com.airbnb.image_ai.service.ImageModelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +28,7 @@ import reactor.core.publisher.Mono;
 public class ImageModelApiController {
     private final ImageModelService imageModelService;
 
-    @PostMapping(value = "/classify", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/classify")
     public Mono<String> classifyImage(@RequestPart("imageFile") Mono<FilePart> filePartMono) {
         return filePartMono
                 .flatMap(filePart -> filePart.content()
