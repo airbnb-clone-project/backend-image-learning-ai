@@ -32,6 +32,7 @@ dependencies {
     implementation 'org.nd4j:nd4j-native-platform:1.0.0-M1.1'
     implementation 'org.datavec:datavec-api:1.0.0-M1.1'
     implementation 'org.datavec:datavec-data-image:1.0.0-M1.1'
+    implementation 'com.microsoft.onnxruntime:onnxruntime:1.15.1'
 
     //lombok
     compileOnly 'org.projectlombok:lombok'

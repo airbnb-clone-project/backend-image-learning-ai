@@ -1,0 +1,4 @@
+### 이미지 분류 api
+POST http://localhost:8080/api/image/classify
+
+imageFile=@http-client\sample-image\img.png;type=image/png
