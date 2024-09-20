@@ -5,7 +5,11 @@ import ai.onnxruntime.OrtException;
 import ai.onnxruntime.OrtSession;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * packageName    : com.airbnb.utils
@@ -21,7 +25,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class ModelLoader {
-    public static final String DATASET_MODEL_AIRBNB_IMAGE_MODEL_ONNX = "./dataset/model/airbnb_image_model.onnx";
+    public static final String DATASET_MODEL_AIRBNB_IMAGE_MODEL_ONNX = "model/airbnb_image_model.onnx";
 
     @Getter
     private static final OrtEnvironment env;
@@ -31,9 +35,10 @@ public class ModelLoader {
 
     static {
         env = OrtEnvironment.getEnvironment();
-        try {
-            session = env.createSession(DATASET_MODEL_AIRBNB_IMAGE_MODEL_ONNX, new OrtSession.SessionOptions());
-        } catch (OrtException e) {
+        try (InputStream inputStream = new ClassPathResource(DATASET_MODEL_AIRBNB_IMAGE_MODEL_ONNX).getInputStream()) {
+            byte[] modelArray = inputStream.readAllBytes();
+            session = env.createSession(modelArray, new OrtSession.SessionOptions());
+        } catch (OrtException | IOException e) {
             log.error("Failed to load model: {}", DATASET_MODEL_AIRBNB_IMAGE_MODEL_ONNX, e);
         }
     }
